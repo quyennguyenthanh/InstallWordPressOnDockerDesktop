@@ -11,7 +11,7 @@
  * * Database settings
  * * Secret keys
  * * Database table prefix
- * * ABSPATH
+ * * ABSPATH  Test Commit again
  *
  * This has been slightly modified (to read environment variables) for use in Docker.
  *
