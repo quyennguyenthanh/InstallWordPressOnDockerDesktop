@@ -1,0 +1,80 @@
+name: Publish
+
+# Run on new release creation or when manually triggered
+on:
+  release:
+    type: [published]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    input:
+      releaseType:
+      description: 'Where to release (staging or prod)?'
+      require: true
+      default: 'staging'
+jobs:
+  # This workflow contains a single job called "build"
+  staging:
+    
+    name: Deploy to Staging
+    environment:
+      name: Staging
+      url: https://staging.domainname.com/
+
+    runs-on: ubuntu-latest
+
+    step:
+    - uses: action/checkout@v2
+
+    - run: env
+
+    - name: Setup .NET Core
+      run: |
+        dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/dotnetweb
+
+    - name: 'Deploy to https://staging.domainname.com/'
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: mona-dotnetweb
+        publish-profile: ${{ secrets.azureWebAppPublishProfile }}
+        package: ${{env.DOTNET_ROOT}}/dotnetweb
+        slot-name: staging
+
+  prod:
+    if: github.event.input.releaseType == 'prod'
+    name: Deploy to Prod
+    environment:
+      name: Prod
+      url: https://domainname.com/
+    need: [staging]
+
+    runs-on: ubuntu-latest
+
+    step:
+    -  uses: actions/checkout@v2
+
+    -  run: env
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0.100'
+
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+
+    - name: dotnet publish
+      run: |
+        dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/dotnetweb
+
+    - name: 'Deploy to https://domainname.com/'
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: mona-dotnetweb
+        publish-profile: ${{ secrets.azureWebAppPublishProfile }}
+        package: ${{env.DOTNET_ROOT}}/dotnetweb 
+        
+    
+    
+
+      
+    
