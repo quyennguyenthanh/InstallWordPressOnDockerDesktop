@@ -1,5 +1,4 @@
 name: Publish
-
 # Run on new release creation or when manually triggered
 on:
   release:

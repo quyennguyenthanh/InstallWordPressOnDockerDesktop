@@ -27,14 +27,14 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Deploy to DigitalOcean
-      - uses: actions/checkout@v2
-        with:
-          host: ${{secrets.SSH_HOST}} #IP address of the server
-          key: ${{secrets.SSH_KEY}} #Public key of the server
-          username: ${{ secrets.SSH_USERNAME}} #User of the server
+          uses: actions/checkout@v2
+          with:
+            host: ${{secrets.SSH_HOST}} #IP address of the server
+            key: ${{secrets.SSH_KEY}} #Public key of the server
+            username: ${{ secrets.SSH_USERNAME}} #User of the server
 
-          script: |
-            mkdir html
-            cd html
-            git clone git@github.com:quyennguyenthanh/InstallWordPressOnDockerDesktop.git
-            docker-compose up -d
+            script: |
+              mkdir html
+              cd html
+              git clone git@github.com:quyennguyenthanh/InstallWordPressOnDockerDesktop.git
+              docker-compose up -d
