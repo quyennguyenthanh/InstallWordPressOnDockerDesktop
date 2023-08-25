@@ -16,6 +16,13 @@ on:
       default: 'staging'
 jobs:
   # This workflow contains a single job called "build"
+  build:
+    
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: action/checkout@v2
+  # Deploy to Staging
   staging:
     
     name: Deploy to Staging
