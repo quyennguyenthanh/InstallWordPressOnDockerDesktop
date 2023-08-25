@@ -24,11 +24,12 @@ jobs:
     - uses: action/checkout@v2
   # Deploy to Staging
   staging:
-    
+    if: github.event.input.releaseType == 'staging'
     name: Deploy to Staging
     environment:
       name: Staging
       url: http://68.183.225.142/
+      need: [build]
     runs-on: ubuntu-latest
     # Add test line
     steps:
