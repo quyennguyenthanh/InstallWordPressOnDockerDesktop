@@ -44,7 +44,7 @@ jobs:
     environment:
       name: Prod
       url: https://domainname.com/
-    need: [staging]
+    needs: [staging]
 
     runs-on: ubuntu-latest
 

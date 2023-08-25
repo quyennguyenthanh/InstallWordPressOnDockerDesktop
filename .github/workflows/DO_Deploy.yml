@@ -29,7 +29,7 @@ jobs:
     environment:
       name: Staging
       url: http://68.183.225.142/
-    need: [build]
+    needs: [build]
     runs-on: ubuntu-latest
     # Add test line
     steps:
