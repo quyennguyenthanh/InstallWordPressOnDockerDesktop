@@ -37,4 +37,5 @@ jobs:
             mkdir html
             cd html
             git clone git@github.com:quyennguyenthanh/InstallWordPressOnDockerDesktop.git
+            cd InstallWordPressOnDockerDesktop
             docker-compose up -d
