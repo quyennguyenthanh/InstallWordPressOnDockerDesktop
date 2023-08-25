@@ -17,19 +17,19 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
-    
     name: Build
     runs-on: ubuntu-latest
     steps:
     - uses: action/checkout@v2
-  # Deploy to Staging
+  
+    # Deploy to Staging
   staging:
     if: github.event.input.releaseType == 'staging'
     name: Deploy to Staging
     environment:
       name: Staging
       url: http://68.183.225.142/
-      need: [build]
+    need: [build]
     runs-on: ubuntu-latest
     # Add test line
     steps:
