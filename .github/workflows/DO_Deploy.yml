@@ -23,7 +23,7 @@ jobs:
       name: Staging
       url: http://68.183.225.142/
     runs-on: ubuntu-latest
-    
+    # Add test line
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Deploy to DigitalOcean
